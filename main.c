@@ -125,30 +125,31 @@ void mostrar_menu()
 void menu_incluir()
 {
     char opcao;
+    while (1) {
+        limpar_terminal();
 
-    limpar_terminal();
+        printf("=====================================\n");
+        printf("             Incluir                 \n");
+        printf("=====================================\n");
 
-    printf("=====================================\n");
-    printf("             Incluir                 \n");
-    printf("=====================================\n\n");
+        printf("[1] Incluir contato\n");
+        printf("[2] Voltar\n");
 
-    printf("[1] Incluir contato\n");
-    printf("[2] Voltar\n\n");
+        printf("Opcao: ");
+        scanf(" %c", &opcao);
 
-    printf("Opcao: ");
-    scanf(" %c", &opcao);
-
-    switch (opcao)
-    {
-    case '2':
-        return;
-        break;
-    case '1':
-        adiconar_contato();
-        break;
-    default:
-        mensagem_opacao_invalida();
-        break;
+        switch (opcao)
+        {
+        case '2':
+            return;
+            break;
+        case '1':
+            adiconar_contato();
+            break;
+        default:
+            mensagem_opacao_invalida();
+            break;
+        }
     }
 }
 
