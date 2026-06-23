@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <windows.h>
+#include <string.h>
 
 void limpar_terminal() {
     if (system("cls") == -1) {
@@ -76,6 +77,17 @@ void opcao_incluir() {
     }
 }
 
+void mensagem_saida() {
+    limpar_terminal();
+    char mensagem[] = "Obrigado por ter usado nosso programa, volte sempre!";
+    int quantidade_letras = strlen(mensagem);
+
+    for (int i =0; i < quantidade_letras; i++) {
+        printf("%c", mensagem[i]);
+        Sleep(100);
+    }
+}
+
 char lista_contatos[50][50][3]; 
 
 int main() {
@@ -103,7 +115,7 @@ int main() {
             printf("Fazer para Excluir\n");
             break;
         case '5':
-            printf("Mensagem de fechar aqui\n");
+            mensagem_saida();
             return 0;
         default:
             opcao = '0';
