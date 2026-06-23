@@ -75,32 +75,36 @@ void opcao_incluir() {
     }
 }
 
+char lista_contatos[50][50][3]; 
+
 int main() {
-    int opcao = 0;
+    char opcao = '0';
 
     while (1) {
         mostrar_menu();
 
         printf("Digite sua opcao: ");
-        scanf("%d", &opcao);
+
+        scanf(" %c", &opcao);
 
         switch (opcao) {
-        case 1:
+        case '1':
             opcao_incluir();
             break;
-        case 2:
+        case '2':
             printf("Fazer para Listar\n");
             break;
-        case 3:
+        case '3':
             printf("Fazer para consultar\n");
             break;
-        case 4:
+        case '4':
             printf("Fazer para Excluir\n");
             break;
-        case 5:
+        case '5':
             printf("Mensagem de fechar aqui\n");
             return 0;
         default:
+            opcao = '0';
             printf("Opcao invalida!\n");
             break;
         }
