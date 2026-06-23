@@ -3,3 +3,5 @@ main.ilk
 main.obj
 .vscode
 output
+main.pdb
+vc140.pdb

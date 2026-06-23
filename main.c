@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <windows.h>
 
 void limpar_terminal() {
     if (system("cls") == -1) {
@@ -81,6 +82,7 @@ int main() {
     char opcao = '0';
 
     while (1) {
+        limpar_terminal();
         mostrar_menu();
 
         printf("Digite sua opcao: ");
@@ -105,7 +107,9 @@ int main() {
             return 0;
         default:
             opcao = '0';
+            limpar_terminal();
             printf("Opcao invalida!\n");
+            Sleep(900);
             break;
         }
     }
