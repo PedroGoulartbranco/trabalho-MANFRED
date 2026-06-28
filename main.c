@@ -12,6 +12,7 @@ void adiconar_contato();
 void mostrar_menu();
 void menu_incluir();
 void mensagem_saida();
+void incluir_contato();
 
 int main()
 {
@@ -125,7 +126,8 @@ void mostrar_menu()
 void menu_incluir()
 {
     char opcao;
-    while (1) {
+    while (1)
+    {
         limpar_terminal();
 
         printf("=====================================\n");
@@ -144,7 +146,7 @@ void menu_incluir()
             return;
             break;
         case '1':
-            adiconar_contato();
+            incluir_contato();
             break;
         default:
             mensagem_opacao_invalida();
@@ -164,4 +166,26 @@ void mensagem_saida()
         printf("%c", mensagem[i]);
         Sleep(100);
     }
+}
+
+void incluir_contato()
+{
+    char nome[50] = "";
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    while (1)
+    {
+        printf("\nDigite o nome: ");
+        fgets(nome, 50, stdin);
+
+        nome[strcspn(nome, "\n")] = '\0';
+        if (nome[0] != '\0')
+        {
+            break;
+        }
+        printf("Nome invalido!\n");
+    }
+    printf("Nome aceito: %s\n", nome);
 }
