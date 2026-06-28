@@ -13,6 +13,7 @@ void mostrar_menu();
 void menu_incluir();
 void mensagem_saida();
 void incluir_contato();
+void titulo_incluir();
 
 int main()
 {
@@ -123,6 +124,12 @@ void mostrar_menu()
     printf("[1] Incluir contato\n[2] Listar Contatos\n[3] Consultar contato pelo nome\n[4] Excluir contato\n[5] Sair\n");
 }
 
+void titulo_incluir() {
+    printf("=====================================\n");
+    printf("             Incluir                 \n");
+    printf("=====================================\n");
+}
+
 void menu_incluir()
 {
     char opcao;
@@ -130,12 +137,12 @@ void menu_incluir()
     {
         limpar_terminal();
 
-        printf("=====================================\n");
-        printf("             Incluir                 \n");
-        printf("=====================================\n");
+        titulo_incluir();
 
         printf("[1] Incluir contato\n");
         printf("[2] Voltar\n");
+
+        printf("=====================================\n");
 
         printf("Opcao: ");
         scanf(" %c", &opcao);
@@ -170,11 +177,14 @@ void mensagem_saida()
 
 void incluir_contato()
 {
+    limpar_terminal();
+    titulo_incluir();
+
     char nome[50] = "";
 
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
-    
+
     while (1)
     {
         printf("\nDigite o nome: ");
@@ -188,4 +198,7 @@ void incluir_contato()
         printf("Nome invalido!\n");
     }
     printf("Nome aceito: %s\n", nome);
+    limpar_terminal();
+    titulo_incluir();
+
 }
