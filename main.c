@@ -4,7 +4,8 @@
 #include <windows.h>
 #include <string.h>
 
-char lista_contatos[50][50][3];
+char lista_contatos[50][2][50];
+int total_contatos = 0;
 
 void limpar_terminal();
 void mensagem_opacao_invalida();
@@ -14,6 +15,7 @@ void menu_incluir();
 void mensagem_saida();
 void incluir_contato();
 void titulo_incluir();
+void mostrar_contatos();
 
 int main()
 {
@@ -34,7 +36,7 @@ int main()
             menu_incluir();
             break;
         case '2':
-            printf("Fazer para Listar\n");
+            mostrar_contatos();
             break;
         case '3':
             printf("Fazer para consultar\n");
@@ -199,7 +201,7 @@ void incluir_contato()
         printf("Nome invalido!\n");
     }
     printf("Nome aceito: %s\n", nome);
-    Sleep(1000)
+    Sleep(1000);
 
     limpar_terminal();
     titulo_incluir();
@@ -207,7 +209,7 @@ void incluir_contato()
     while (1)
     {
         printf("\nDigite o telefone: ");
-        fgets(telefone, 15, stdin);
+        fgets(telefone, sizeof(telefone), stdin);
 
         telefone[strcspn(telefone, "\n")] = '\0';
         if (strlen(telefone) >= 10 && strlen(telefone) <= 11)
@@ -219,4 +221,34 @@ void incluir_contato()
     printf("Telefone aceito: %s\n", telefone);
     Sleep(1000);
 
+    if (total_contatos < 50) {
+        
+        strcpy(lista_contatos[total_contatos][0], nome);
+        
+        strcpy(lista_contatos[total_contatos][1], telefone);
+
+        printf("\nContato salvo com sucesso na posicao %i!\n", total_contatos + 1);
+        
+        total_contatos++;
+    } else {
+        printf("\nErro: Agenda cheia!\n");
+    }
+    Sleep(1000);
+
+}
+
+void mostrar_contatos() {
+    limpar_terminal();
+    if (total_contatos < 1) {
+        printf("Nenhum contato adiconado!");
+        Sleep(1000);
+        return;
+    }
+    for(int i = 0; i < total_contatos; i++) {
+        printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+    }
+    printf("\nAperte ENTER para sair...");
+
+    getchar(); 
+    getchar();
 }
