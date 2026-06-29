@@ -75,50 +75,50 @@ void mensagem_opacao_invalida()
     return;
 }
 
-void adiconar_contato()
-{
-    char nome[100];
-    char telefone[20];
-    int tamanho = 0;
-    int valido = 1;
-    char opcao;
+// void adiconar_contato()
+// {
+//     char nome[100];
+//     char telefone[20];
+//     int tamanho = 0;
+//     int valido = 1;
+//     char opcao;
 
-    printf("\nNome do contato: ");
-    scanf(" %99[^\n]", nome);
+//     printf("\nNome do contato: ");
+//     scanf(" %99[^\n]", nome);
 
-    printf("Telefone do contato: ");
-    scanf("%19s", telefone);
+//     printf("Telefone do contato: ");
+//     scanf("%19s", telefone);
 
-    while (telefone[tamanho] != '\0')
-    {
-        if (!isdigit(telefone[tamanho]))
-        {
-            valido = 0;
-        }
-        tamanho++;
-    }
+//     while (telefone[tamanho] != '\0')
+//     {
+//         if (!isdigit(telefone[tamanho]))
+//         {
+//             valido = 0;
+//         }
+//         tamanho++;
+//     }
 
-    if (tamanho != 10 && tamanho != 11)
-    {
-        valido = 0;
-    }
+//     if (tamanho != 10 && tamanho != 11)
+//     {
+//         valido = 0;
+//     }
 
-    if (!valido)
-    {
-        printf("\nTelefone invalido!\n");
-        printf("Digite apenas numeros com 10 ou 11 digitos.\n");
-        return;
-    }
+//     if (!valido)
+//     {
+//         printf("\nTelefone invalido!\n");
+//         printf("Digite apenas numeros com 10 ou 11 digitos.\n");
+//         return;
+//     }
 
-    printf("\nContato cadastrado com sucesso!\n");
-    printf("Nome: %s\n", nome);
-    printf("Telefone: %s\n\n", telefone);
+//     printf("\nContato cadastrado com sucesso!\n");
+//     printf("Nome: %s\n", nome);
+//     printf("Telefone: %s\n\n", telefone);
 
-    printf("[1] Incluir outro contato\n");
-    printf("[2] Voltar ao menu\n");
-    printf("Opcao: ");
-    scanf(" %c", &opcao);
-}
+//     printf("[1] Incluir outro contato\n");
+//     printf("[2] Voltar ao menu\n");
+//     printf("Opcao: ");
+//     scanf(" %c", &opcao);
+// }
 
 void mostrar_menu()
 {
@@ -185,7 +185,7 @@ void incluir_contato()
     titulo("Incluir");
 
     char nome[50] = "";
-    char telefone[12] = "";
+    char telefone[16] = "";
 
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -261,6 +261,7 @@ void excluir_contatos() {
     limpar_terminal();
 
     char opcao = '0';
+    int indice_excluir;
 
     if (total_contatos < 1) {
         printf("Nenhum contato adiconado.");
@@ -269,12 +270,7 @@ void excluir_contatos() {
     }
     while (1) {
         limpar_terminal();
-        titulo("Contatos");
-
-        for(int i = 0; i < total_contatos; i++) {
-            printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
-        }
-        linha();
+        titulo("Menu Excluir");
 
         printf("[0] Excluir\n[1] Sair\n");
 
@@ -292,7 +288,45 @@ void excluir_contatos() {
             Sleep(2000);
             return;
             break;
+        case '0':
+            limpar_terminal();
+            titulo("Excluir");
+
+            for(int i = 0; i < total_contatos; i++) {
+                printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+            }
+            linha();
+            
+            printf("Digite o numero do usuario que deseja excluir: ");
+            if (scanf("%d", &indice_excluir) != 1) {
+                mensagem_opacao_invalida();
+                int c; while ((c = getchar()) != '\n' && c != EOF); 
+                break;
+            }
+
+            int posicao_matriz = indice_excluir - 1;
+
+            if (posicao_matriz < 0 || posicao_matriz >= total_contatos) {
+                mensagem_opacao_invalida();
+                break;
+            }
+
+            for (int i = posicao_matriz; i < total_contatos - 1; i++) {
+                strcpy(lista_contatos[i][0], lista_contatos[i + 1][0]);
+                strcpy(lista_contatos[i][1], lista_contatos[i + 1][1]);
+            }
+
+            total_contatos--;
+
+            printf("\nContato excluido com sucesso!\n");
+            Sleep(2000);
+            return; 
+
+            break;
         default:
+            // printf("Opção invalido");
+            opcao = '0';
+            mensagem_opacao_invalida();
             break;
         }
     }
