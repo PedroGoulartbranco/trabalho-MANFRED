@@ -14,8 +14,9 @@ void mostrar_menu();
 void menu_incluir();
 void mensagem_saida();
 void incluir_contato();
-void titulo_incluir();
+void titulo(char mensagem[]);
 void mostrar_contatos();
+void excluir_contatos();
 
 int main()
 {
@@ -42,7 +43,7 @@ int main()
             printf("Fazer para consultar\n");
             break;
         case '4':
-            printf("Fazer para Excluir\n");
+            excluir_contatos();
             break;
         case '5':
             mensagem_saida();
@@ -126,9 +127,9 @@ void mostrar_menu()
     printf("[1] Incluir contato\n[2] Listar Contatos\n[3] Consultar contato pelo nome\n[4] Excluir contato\n[5] Sair\n");
 }
 
-void titulo_incluir() {
+void titulo(char mensagem[]) {
     printf("=====================================\n");
-    printf("             Incluir                 \n");
+    printf("             %s                 \n", mensagem);
     printf("=====================================\n");
 }
 
@@ -139,7 +140,7 @@ void menu_incluir()
     {
         limpar_terminal();
 
-        titulo_incluir();
+        titulo("Incluir");
 
         printf("[1] Incluir contato\n");
         printf("[2] Voltar\n");
@@ -180,7 +181,7 @@ void mensagem_saida()
 void incluir_contato()
 {
     limpar_terminal();
-    titulo_incluir();
+    titulo("Incluir");
 
     char nome[50] = "";
     char telefone[12] = "";
@@ -204,7 +205,7 @@ void incluir_contato()
     Sleep(1000);
 
     limpar_terminal();
-    titulo_incluir();
+    titulo("Incluir");
 
     while (1)
     {
@@ -244,6 +245,8 @@ void mostrar_contatos() {
         Sleep(1000);
         return;
     }
+    limpar_terminal();
+    titulo("Contatos");
     for(int i = 0; i < total_contatos; i++) {
         printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
     }
@@ -251,4 +254,20 @@ void mostrar_contatos() {
 
     getchar(); 
     getchar();
+}
+
+void excluir_contatos() {
+    limpar_terminal();
+    if (total_contatos < 1) {
+        printf("Nenhum contato adiconado.");
+        Sleep(2000);
+        return;
+    }
+    limpar_terminal();
+    titulo("Contatos");
+
+    for(int i = 0; i < total_contatos; i++) {
+        printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+    }
+
 }
