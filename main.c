@@ -18,6 +18,7 @@ void titulo(char mensagem[]);
 void mostrar_contatos();
 void excluir_contatos();
 void linha();
+void pesquisar_contato();
 
 int main()
 {
@@ -28,6 +29,7 @@ int main()
         limpar_terminal();
         mostrar_menu();
 
+        linha();
         printf("Digite sua opcao: ");
 
         scanf(" %c", &opcao);
@@ -41,7 +43,7 @@ int main()
             mostrar_contatos();
             break;
         case '3':
-            printf("Fazer para consultar\n");
+            pesquisar_contato();
             break;
         case '4':
             excluir_contatos();
@@ -74,51 +76,6 @@ void mensagem_opacao_invalida()
     Sleep(900);
     return;
 }
-
-// void adiconar_contato()
-// {
-//     char nome[100];
-//     char telefone[20];
-//     int tamanho = 0;
-//     int valido = 1;
-//     char opcao;
-
-//     printf("\nNome do contato: ");
-//     scanf(" %99[^\n]", nome);
-
-//     printf("Telefone do contato: ");
-//     scanf("%19s", telefone);
-
-//     while (telefone[tamanho] != '\0')
-//     {
-//         if (!isdigit(telefone[tamanho]))
-//         {
-//             valido = 0;
-//         }
-//         tamanho++;
-//     }
-
-//     if (tamanho != 10 && tamanho != 11)
-//     {
-//         valido = 0;
-//     }
-
-//     if (!valido)
-//     {
-//         printf("\nTelefone invalido!\n");
-//         printf("Digite apenas numeros com 10 ou 11 digitos.\n");
-//         return;
-//     }
-
-//     printf("\nContato cadastrado com sucesso!\n");
-//     printf("Nome: %s\n", nome);
-//     printf("Telefone: %s\n\n", telefone);
-
-//     printf("[1] Incluir outro contato\n");
-//     printf("[2] Voltar ao menu\n");
-//     printf("Opcao: ");
-//     scanf(" %c", &opcao);
-// }
 
 void mostrar_menu()
 {
@@ -272,7 +229,7 @@ void excluir_contatos() {
         limpar_terminal();
         titulo("Menu Excluir");
 
-        printf("[0] Excluir\n[1] Sair\n");
+        printf("[1] Excluir\n[2] Sair\n");
 
         linha();
 
@@ -282,13 +239,13 @@ void excluir_contatos() {
 
         switch (opcao)
         {
-        case '1':
+        case '2':
             limpar_terminal();
             printf("Retornando para o menu principal!");
             Sleep(2000);
             return;
             break;
-        case '0':
+        case '1':
             limpar_terminal();
             titulo("Excluir");
 
@@ -324,13 +281,53 @@ void excluir_contatos() {
 
             break;
         default:
-            // printf("Opção invalido");
             opcao = '0';
             mensagem_opacao_invalida();
             break;
         }
     }
 
+}
+
+void pesquisar_contato() {
+    limpar_terminal();
+
+    if (total_contatos < 1) {
+        printf("Nenhum contato adicionado!");
+        Sleep(2000);
+        return;
+    }
+
+    titulo("Pesquisar Contato");
+    char termo_busca[50] = "";
+    int c;
+    
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    printf("\nDigite o nome (ou parte dele) para buscar: ");
+    fgets(termo_busca, sizeof(termo_busca), stdin);
+    termo_busca[strcspn(termo_busca, "\n")] = '\0'; 
+
+    limpar_terminal();
+    titulo("Resultados da Busca");
+
+    int encontrados = 0;
+    for (int i = 0; i < total_contatos; i++) {
+
+        if (strstr(lista_contatos[i][0], termo_busca) != NULL) {
+            printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+            encontrados++;
+        }
+    }
+
+    if (encontrados == 0) {
+        printf("\nNenhum contato encontrado com o termo \"%s\".\n", termo_busca);
+    } else {
+        printf("\nForam encontrados %d contato(s).\n", encontrados);
+    }
+
+    printf("\nPressione ENTER para sair...");
+    getchar();
 }
 
 void linha() {
