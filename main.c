@@ -17,6 +17,7 @@ void incluir_contato();
 void titulo(char mensagem[]);
 void mostrar_contatos();
 void excluir_contatos();
+void linha();
 
 int main()
 {
@@ -258,16 +259,46 @@ void mostrar_contatos() {
 
 void excluir_contatos() {
     limpar_terminal();
+
+    char opcao = '0';
+
     if (total_contatos < 1) {
         printf("Nenhum contato adiconado.");
         Sleep(2000);
         return;
     }
-    limpar_terminal();
-    titulo("Contatos");
+    while (1) {
+        limpar_terminal();
+        titulo("Contatos");
 
-    for(int i = 0; i < total_contatos; i++) {
-        printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+        for(int i = 0; i < total_contatos; i++) {
+            printf("Contato %i -> Nome: %s | Tel: %s\n", i + 1, lista_contatos[i][0], lista_contatos[i][1]);
+        }
+        linha();
+
+        printf("[0] Excluir\n[1] Sair\n");
+
+        linha();
+
+        printf("Digite sua opcao: ");
+
+        scanf(" %c", &opcao);
+
+        switch (opcao)
+        {
+        case '1':
+            limpar_terminal();
+            printf("Retornando para o menu principal!");
+            Sleep(2000);
+            return;
+            break;
+        default:
+            break;
+        }
     }
 
+}
+
+void linha() {
+    printf("=====================================\n");
 }
