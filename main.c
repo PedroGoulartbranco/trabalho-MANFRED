@@ -181,6 +181,7 @@ void incluir_contato()
     titulo_incluir();
 
     char nome[50] = "";
+    char telefone[12] = "";
 
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -198,7 +199,24 @@ void incluir_contato()
         printf("Nome invalido!\n");
     }
     printf("Nome aceito: %s\n", nome);
+    Sleep(1000)
+
     limpar_terminal();
     titulo_incluir();
+
+    while (1)
+    {
+        printf("\nDigite o telefone: ");
+        fgets(telefone, 15, stdin);
+
+        telefone[strcspn(telefone, "\n")] = '\0';
+        if (strlen(telefone) >= 10 && strlen(telefone) <= 11)
+        {
+            break;
+        }
+        printf("Telefone invalido!\n");
+    }
+    printf("Telefone aceito: %s\n", telefone);
+    Sleep(1000);
 
 }
